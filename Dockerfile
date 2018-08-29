@@ -4,4 +4,4 @@ RUN apk update
 RUN apk upgrade
 RUN apk add --no-cache curl bash
 COPY ./createdb.sh /
-ENTRYPOINT ["/createdb.sh"]
+CMD createdb.sh
