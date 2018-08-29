@@ -6,4 +6,4 @@ RUN apk add --no-cache curl bash
 WORKDIR /src
 COPY ./createdb.sh .
 RUN chmod +x ./createdb.sh
-CMD ["./createdb.sh"]
+ENTRYPOINT [ "./createdb.sh"]
