@@ -10,3 +10,35 @@ Image has `shell` and the options should be passed as below
 ## How to use:
 
 This image can be used with the `influxdb's helm chart` as a `post-install` hook to create multiple databases in the InfluxDB. 
+
+## Example helm post-install hook:
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: influx-additional-dbs
+  labels:
+    app.kubernetes.io/managed-by: {{.Release.Service | quote }}
+    app.kubernetes.io/instance: {{.Release.Name | quote }}
+    helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: additional-dbs
+      labels:
+        app.kubernetes.io/managed-by: {{.Release.Service | quote }}
+        app.kubernetes.io/instance: {{.Release.Name | quote }}
+        helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: create-additional-dbs
+        image: gkarthics/influx-additional-db:release-0.2.11
+        command: ["./createdb.sh"]
+        args: ["-url", "http://influxdb.default.svc:8086", "-db", "mydb1,mydb2,mydb3"]
+```
