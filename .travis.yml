@@ -1,17 +1,17 @@
 sudo: required
-
 services:
-  - docker
-
+- docker
 env:
   global:
-    - COMMIT=${TRAVIS_COMMIT::8}
-
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - secure: d51B/fgq6aOZfScOuDEEYR4ZXRFp12rVC9o6WaVhC4bRq09pT+F9YvsuyLV28ogqDABAhqIcqkQ+ChdzdWUdH3AfW/aBqUd7AyqkD/7ZqSPtp8TvyRowyJ81rTHnHVdj4L1srye9YEAOurP/vsJfuSTyQcOr+nX0KiW4WKmQzuPDtDNw3GsvJVd8NCYObb307L9ys1DtIrUBE9V3UivAXxA4lYhsckfUMyNFlu7V4OqbaP4k1dhQIeOD8bbHugwg43N8Aq66z2P5I/geV0XKr9vn2MIOOMpHysse47vPJLRJulbJ3BHRM5EdHT1heHRiJF5eSY4ma+g9s84Y0YVaB+G18wR+n2RFuVark3rmppKeQVAW2GZUmpkAsIXSp+6hZ6NENmU6M5sCLNz54rKUOEyC7m8FsVxyBwzbGR51R+1F4PV3NNK61knNPDUl60FE2SLeFLJLHTwpcwPdSc5ULIB8jros+V0ZNfb9KchAtJszMIznnuUyOUQVQQy+hVYYEx6v9yF5W41v16snhabKWbdgJTm3HC7WS6XDbSzc46WoktCiiZB8FGmt1Udw3KfAyYEwMaXPUTycN/abyjHxTXnXBRtfADx126lxXS/APb4VgJ1umLFfJk5XR3/MSUin/BUROGT3SxxSGvwAFxy+IytSi0LHjHgjvEn3ChJh19s=
+  - secure: N5kbTno+JDDRQXkDm95DdoQqcdD8aThJ1s/AT2FnXqZJwlWCc0XozynUjTgd9SicnW4iImPD1fkuRHqE93Q/a5wCYVYzAHq1eA8y3PzxhrPbIeeVmlg8aCP22fcMHN9cw3VtYLUO9ePuPpzwRLfsvr2kYIQ2/fS4WyRAAyO44ch/RDsE6tBmvJz6tPcphyiuMVirJAl0vSXUKz0DhOfgM58PwWmRQlSNeKNOpn3kTsMUQMBAIyJGQ/YQb/ZxlKzKN1NKq5GuTtqZT0CjyIjHzAhRfJpwUEdmxawnsp81tmJLGHeyDh0q2XHRrIeUdH4s+XFeUSjZ04YvhSfvHn6l4hlUaZ3t9Ft/6JumnPPGj/n14exQBGx5DnlsbQJf3jwWEQEzdiu4P+wYDhrB+WHIlNbQcGpNO0KJYS19YlC3YjOnud5E14x0lFId5RbwE/0fimugoiqbdG0E3tAnpO1uVFWnnsY0Cun5+KEuld/IOc9mkT8vLwtL5uSyQ4NkecCfY9zcFRN+xanEksjYc++Qxepbs0uwTHlp0V2zWO2EJl6ZKUqY2kSWE+yKb4Lk8Oe7d55eqJYMppsaClsskAqAE8GH697zC2PBrRD/G+cN8JSpGgruTGTHI3C14KNVX5GQoG5R6knXK/62lMb1uuFjgTb5hCbxtc8jDcWZNj6el2Q=
 after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS  --password-stdin
-  - export REPO=gkarthics/influx-additional-db
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker build -f Dockerfile -t $REPO:$COMMIT .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO
+- docker login -u $DOCKER_USER -p $DOCKER_PASS  --password-stdin
+- export REPO=gkarthics/influx-additional-db
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
+  ; fi`
+- docker build -f Dockerfile -t $REPO:$COMMIT .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO
