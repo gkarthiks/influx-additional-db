@@ -7,4 +7,4 @@ WORKDIR /src
 COPY ./createdb.sh .
 RUN chmod +x ./createdb.sh
 ENTRYPOINT ["bash"]
-CMD ["createdb.sh"]
+CMD ["./createdb.sh"]
