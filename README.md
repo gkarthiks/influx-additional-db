@@ -42,3 +42,6 @@ spec:
         command: ["./createdb.sh"]
         args: ["-url", "http://influxdb.default.svc:8086", "-db", "mydb1,mydb2,mydb3"]
 ```
+
+### Warning:
+:warning: This hook will not be executed if the pod is crashed and recreated.
